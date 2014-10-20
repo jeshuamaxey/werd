@@ -80,6 +80,14 @@
       return color.length === 6 && typeof parseInt('b4d455', 16) === 'number';
     }
 
+    function supportsHtml5Storage() {
+      try {
+        return 'localStorage' in window && window['localStorage'] !== null;
+      } catch (e) {
+        return false;
+      }
+    }
+
     var colors = ['hotpink', 'aquamarine', 'crimson', 'deepSkyBlue', 'tomato', 'sienna', 'chocolate']
     var color = getQueryVariable('c');
     // strip off trailing slash
@@ -115,6 +123,21 @@
        }
        lastScrollTop = st;
     };
+
+    //load in the text when the window opens
+    window.onload = function() {
+      if(supportsHtml5Storage()) {
+        var werdz = localStorage.getItem('werdz');
+        textarea.value = werdz;
+      }
+    }
+
+    //save the text when the window closes
+    window.onunload = function() {
+      if(supportsHtml5Storage()) {
+        localStorage.setItem('werdz', textarea.value);
+      }
+    }
 
   </script>
 </body>
