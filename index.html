@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Werd.me</title>
+  <title>Werd</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='http://fonts.googleapis.com/css?family=Lato:100,400' rel='stylesheet' type='text/css'>
   <style>
@@ -52,6 +52,20 @@
       text-align: center;
     }
 
+    p span {
+      color: black;
+      font-weight: 400;
+
+      -webkit-user-select: none;  /* Chrome all / Safari all */
+      -moz-user-select: none;     /* Firefox all */
+      -ms-user-select: none;      /* IE 10+ */
+
+    }
+
+    p span:hover {
+      cursor: pointer;
+    }
+
     p a {
       font-weight: 400;
       text-decoration: none;
@@ -61,7 +75,7 @@
 </head>
 <body>
   <textarea id="text" autofocus></textarea>
-  <p>by <a id="site" href="http://jeshua.co">&#64;jeshuamaxey</a></p>
+  <p><span id="toggleCase">werd</span> by <a id="site" href="http://jeshua.co">&#64;jeshuamaxey</a></p>
   <script>
     function getQueryVariable(variable) {
       var query = window.location.search.substring(1);
@@ -102,27 +116,18 @@
 
     var textarea = document.getElementById('text');
     var link = document.getElementById('site');
+
     textarea.style.color = color;
     link.style.color = color;
 
-    //text resizing with scroll
-    var lastScrollTop = 0, delta = 5;
-    
-    window.onscroll = function(e) {
-      var st = window.scrollTop;
-     
-       if(Math.abs(lastScrollTop - st) <= delta)
-          return;
-       
-       if (st > lastScrollTop){
-           // downscroll code
-           console.log('scroll down');
-       } else {
-          // upscroll code
-          console.log('scroll up');
-       }
-       lastScrollTop = st;
-    };
+    var toggle = document.getElementById('toggleCase');
+    var upperCase = true;
+
+    toggle.onclick = function() {
+      console.log('flip')
+      upperCase = !upperCase;
+      textarea.style['text-transform'] = upperCase ? 'uppercase' : 'none';
+    }
 
     //load in the text when the window opens
     window.onload = function() {
